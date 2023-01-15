@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kustomize-sample-prd
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/y-shigeta/kustomize-sample.git"
+    path: overlays/prd
+    targetRevision: main
+  #    kustomize:
+  #      namePrefix: sample-
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: example-prd
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

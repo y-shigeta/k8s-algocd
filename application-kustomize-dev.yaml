@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kustomize-sample-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/y-shigeta/kustomize-sample.git'
+    path: overlays/dev
+    targetRevision: dev
+#    kustomize:
+#      namePrefix: sample-
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: example-dev
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
